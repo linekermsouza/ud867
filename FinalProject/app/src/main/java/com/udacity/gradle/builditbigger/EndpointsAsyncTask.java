@@ -45,14 +45,19 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         try {
             return myApiService.tellJoke().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            e.printStackTrace();
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
-        Intent intent = new Intent(context, JokeActivity.class);
-        intent.putExtra(JokeActivity.EXTRA_JOKE, result);
-        context.startActivity(intent);
+        if (result == null || result.equals("")) {
+            Toast.makeText(context, "Erro ao recuperar joke", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(context, JokeActivity.class);
+            intent.putExtra(JokeActivity.EXTRA_JOKE, result);
+            context.startActivity(intent);
+        }
     }
 }
