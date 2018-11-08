@@ -47,4 +47,6 @@ dependencies {
     })
 
     testImplementation 'junit:junit:4.12'
+    compile project(':jokerlib')
+    compile project(':jokeview')
 }
